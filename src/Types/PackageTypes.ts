@@ -1,4 +1,5 @@
 export type PackageProps = {
+    _id: Key | null | undefined;
     from: string;
     to: string;
     startDate: string;

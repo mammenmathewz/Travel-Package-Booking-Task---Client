@@ -1,10 +1,12 @@
-import React from 'react'
+
 import Navbar from '../../components/HomeComponents/NavBar'
+import PackageList from '../../components/HomeComponents/PackageList'
 
 function Home() {
   return (
     <>
     <Navbar/>
+    <PackageList/>
     </>
   )
 }
