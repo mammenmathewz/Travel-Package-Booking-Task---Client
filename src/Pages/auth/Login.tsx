@@ -1,8 +1,14 @@
 
+import Navbar from '../../components/HomeComponents/NavBar'
+import LoginMain from '../../components/AuthComponents/LoginMain'
 
 function Login() {
   return (
-    <div>Login</div>
+    
+    <>
+    <Navbar/>
+    <LoginMain/>
+    </>
   )
 }
 
