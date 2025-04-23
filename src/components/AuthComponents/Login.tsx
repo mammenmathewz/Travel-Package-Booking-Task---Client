@@ -24,10 +24,10 @@ const LoginComponent = () => {
       if (data?.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.role);
-        localStorage.setItem("userId", data.user._id);
+        localStorage.setItem("id", data.user.id);
         localStorage.setItem("userName", data.user.name);
 
-        setUser({ token: data.token, role: data.user.role });
+        setUser({ token: data.token, role: data.user.role, id: data.user._id });
 
         if (data.user.role === "admin") {
           navigate("/admin");

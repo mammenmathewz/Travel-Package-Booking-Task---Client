@@ -1,17 +1,24 @@
 import { createContext, useContext, useState } from "react";
 
+type UserType = {
+  token: string;
+  role: string | null;
+  id: string | null;
+};
+
 type AuthContextType = {
-  user: { token: string; role: string | null } | null;
-  setUser: React.Dispatch<React.SetStateAction<{ token: string; role: string | null } | null>>;
+  user: UserType | null;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(() => {
+  const [user, setUser] = useState<UserType | null>(() => {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
-    return token ? { token, role } : null;
+    const id = localStorage.getItem("id");
+    return token ? { token, role, id } : null;
   });
 
   return (
@@ -21,5 +28,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
-
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
+  return context;
+};
