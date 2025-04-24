@@ -62,6 +62,49 @@ export default function UserProfileDashboard() {
             >
               {editMode ? "Save" : "Edit"}
             </Button>
+            <div className="flex-1 w-full space-y-2">
+              {editMode ? (
+                <>
+                  <Input
+                    name="name"
+                    value={profile.name}
+                    onChange={handleInputChange}
+                    placeholder="Name"
+                  />
+                  <Input
+                    name="address"
+                    value={profile.address}
+                    onChange={handleInputChange}
+                    placeholder="Address"
+                  />
+                </>
+              ) : (
+                <>
+                  <CardTitle>{profile.name}</CardTitle>
+                  <p className="text-sm text-muted-foreground">{profile.address}</p>
+                </>
+              )}
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  onClick={() => setEditMode((prev) => !prev)}
+                  variant={editMode ? "secondary" : "outline"}
+                >
+                  {editMode ? "Save" : "Edit"}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    window.location.href = "/login";
+                  }}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
+
           </div>
         </CardHeader>
       </Card>
