@@ -1,0 +1,19 @@
+import axiosInstance from "../Axios/axios";
+
+export const getAllUsers = async () => {
+    try {
+        const response = await axiosInstance.get("/admin/getallusers");
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const getUserBookings = async (userId: string) => {
+    try {
+        const response = await axiosInstance.get(`/admin/getuserbookings/${userId}`);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+};

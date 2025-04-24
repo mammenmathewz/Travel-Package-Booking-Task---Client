@@ -1,8 +1,11 @@
+import UserlistAdmin from "../../components/AdminComponents/UserlistAdmin"
 
 
 function UserList() {
   return (
-    <div>UserList</div>
+    <>
+    <UserlistAdmin/>
+    </>
   )
 }
 

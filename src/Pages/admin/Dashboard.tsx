@@ -35,7 +35,9 @@ export function AdminLayout() {
   return (
     <SidebarProvider>
       <div className="flex h-screen">
-        <Sidebar className="w-64">
+      <Sidebar className="min-w-64 max-w-64 w-64">
+
+
           <SidebarContent>
             <SidebarGroup>
               <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
@@ -55,10 +57,11 @@ export function AdminLayout() {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
+
         </Sidebar>
 
-        <div className="flex-1 p-4 overflow-auto bg-gray-50 dark:bg-gray-900">
-          <Outlet /> {/* Content for nested routes */}
+        <div className="flex-1 p-4 dark:bg-gray-900">
+          <Outlet /> 
         </div>
       </div>
     </SidebarProvider>
