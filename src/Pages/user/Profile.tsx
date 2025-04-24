@@ -1,8 +1,13 @@
-import React from 'react'
+import Navbar from "../../components/HomeComponents/NavBar"
+import UserProfileDashboard from "../../components/HomeComponents/ProfilePage"
+
 
 function Profile() {
   return (
-    <div>Profile</div>
+    <>
+    <Navbar/>
+    <UserProfileDashboard/>
+    </>
   )
 }
 
