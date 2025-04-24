@@ -19,3 +19,4 @@ export const getUserBookings = async (userId: string) => {
         return error;
     }
 };
+

@@ -1,8 +1,10 @@
-import React from 'react'
+import EditPackageForm from '../../components/PackageComponents/EditPackageAdmin'
 
 function EditPackages() {
   return (
-    <div>EditPackages</div>
+    <>
+    <EditPackageForm/>
+    </>
   )
 }
 

@@ -70,7 +70,7 @@ function AdminPackageList() {
       ) : filteredPackages.length === 0 ? (
         <div className="text-center text-gray-500 text-sm">No packages in this category.</div>
       ) : (
-        <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 cursor-pointer">
+        <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 ">
           {filteredPackages.map((pkg) => (
             <PackageCard key={pkg._id} {...pkg} />
           ))}

@@ -11,3 +11,13 @@ export const getAllPackages = async () => {
   }
 }
 
+export const editPackage = async (id: string, data: any) => {
+  try {
+    const response = await axiosInstance.put(`/admin/updatepackage/${id}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error editing package:", error);
+    throw error;
+  }
+}
+

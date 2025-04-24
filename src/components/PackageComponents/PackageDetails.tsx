@@ -5,12 +5,15 @@ import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
+import { useAuth } from "../../Services/Context/AuthContext";
 
 function PackageDetails() {
   const { id } = useParams();
   const { state } = useLocation();
   const data = state?.packageData; 
   const navigate = useNavigate();
+  const {user} = useAuth()
+
   const [pkg, setPkg] = useState<PackageProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [foodIncluded, setFoodIncluded] = useState(false);
@@ -102,12 +105,14 @@ function PackageDetails() {
             <p className="text-base font-semibold">Total: ₹{totalPrice}</p>
           </div>
 
-          <Button
+          {user && user.role === "user" && ( <Button
             className="w-full"
             onClick={() => alert("Booking submitted (marked as Accepted)")}
           >
             Book Now
-          </Button>
+          </Button>)}
+
+         
         </CardContent>
       </Card>
     </div>
