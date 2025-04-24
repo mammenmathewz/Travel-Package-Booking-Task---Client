@@ -6,13 +6,25 @@ import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { useAuth } from "../../Services/Context/AuthContext";
+import { deletePackage } from "../../Services/Api/packageApis";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 
 function PackageDetails() {
   const { id } = useParams();
   const { state } = useLocation();
-  const data = state?.packageData; 
+  const data = state?.packageData;
   const navigate = useNavigate();
-  const {user} = useAuth()
+  const { user } = useAuth();
 
   const [pkg, setPkg] = useState<PackageProps | null>(null);
   const [loading, setLoading] = useState(true);
@@ -22,7 +34,7 @@ function PackageDetails() {
   useEffect(() => {
     if (data) {
       setPkg(data);
-      setFoodIncluded(data.includedServices?.food ?? false); 
+      setFoodIncluded(data.includedServices?.food ?? false);
       setAccommodationIncluded(data.includedServices?.accommodation ?? false);
       setLoading(false);
       return;
@@ -34,9 +46,20 @@ function PackageDetails() {
 
   const { from, to, startDate, endDate, basePrice, packageDetails, includedServices } = pkg;
 
-  const totalPrice = basePrice +
+  const totalPrice =
+    basePrice +
     (foodIncluded ? 500 : 0) +
     (accommodationIncluded ? 1000 : 0);
+
+  const handleDelete = async () => {
+    try {
+      await deletePackage(pkg._id);
+      navigate("/admin/packages");
+    } catch (error) {
+      console.error("Failed to delete package:", error);
+      alert("Error deleting package.");
+    }
+  };
 
   return (
     <div className="p-4 max-w-full lg:max-w-4xl mx-auto space-y-4">
@@ -51,6 +74,7 @@ function PackageDetails() {
             alt="Package"
             className="w-full h-72 object-cover rounded-xl border"
           />
+
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center sm:space-x-4">
             <h2 className="text-2xl font-bold">{from} → {to}</h2>
             <p className="text-base font-medium">Base Price: ₹{basePrice}</p>
@@ -77,13 +101,12 @@ function PackageDetails() {
               </div>
             )}
 
-    
             {!includedServices?.food && (
               <div className="flex items-center gap-2">
                 <Checkbox
                   id="food"
                   checked={foodIncluded}
-                  onCheckedChange={() => setFoodIncluded(prev => !prev)}
+                  onCheckedChange={() => setFoodIncluded((prev) => !prev)}
                 />
                 <Label htmlFor="food">Include Food (+₹500)</Label>
               </div>
@@ -94,25 +117,44 @@ function PackageDetails() {
                 <Checkbox
                   id="accommodation"
                   checked={accommodationIncluded}
-                  onCheckedChange={() => setAccommodationIncluded(prev => !prev)}
+                  onCheckedChange={() => setAccommodationIncluded((prev) => !prev)}
                 />
                 <Label htmlFor="accommodation">Include Accommodation (+₹1000)</Label>
               </div>
             )}
           </div>
-        
+
           <div className="pt-2">
             <p className="text-base font-semibold">Total: ₹{totalPrice}</p>
           </div>
 
-          {user && user.role === "user" && ( <Button
-            className="w-full"
-            onClick={() => alert("Booking submitted (marked as Accepted)")}
-          >
-            Book Now
-          </Button>)}
+          {user?.role === "user" && (
+            <Button className="w-full" onClick={() => alert("Booking submitted (marked as Accepted)")}>
+              Book Now
+            </Button>
+          )}
 
-         
+          {user?.role === "admin" && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive" className="w-full">
+                  Delete Package
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete the package.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
         </CardContent>
       </Card>
     </div>

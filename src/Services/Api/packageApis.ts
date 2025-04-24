@@ -21,3 +21,13 @@ export const editPackage = async (id: string, data: any) => {
   }
 }
 
+export const deletePackage = async (id: string|undefined|null) => {
+  try {
+    const response = await axiosInstance.delete(`/admin/deletepackage/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting package:", error);
+    throw error;
+  }
+}
+
