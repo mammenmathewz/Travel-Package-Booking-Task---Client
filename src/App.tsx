@@ -3,9 +3,9 @@ import Home from './Pages/user/Home'
 import Package from './Pages/user/Package'
 import Profile from './Pages/user/Profile'
 import Login from './Pages/auth/Login'
-import Dashboard from './Pages/admin/Dashboard'
 import ListPackages from './Pages/admin/ListPackages'
 import EditPackages from './Pages/admin/EditPackages'
+import { Dashboard } from './Pages/admin/Dashboard'
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       {/* Admin Routes */}
       <Route path='/admin' element={<Dashboard/>}/>
-      <Route path='/packages' element={<ListPackages/>}/>
+      <Route path='/admin/packages' element={<ListPackages/>}/>
       <Route path='/packages/edit/:id' element={<EditPackages/>}/>
 
     </Routes>
