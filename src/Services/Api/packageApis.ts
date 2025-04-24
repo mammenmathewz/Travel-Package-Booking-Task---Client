@@ -31,3 +31,12 @@ export const deletePackage = async (id: string|undefined|null) => {
   }
 }
 
+export const addPackage = async (data: any) => {
+  try {
+    const response = await axiosInstance.post("/admin/addpackage", data);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding package:", error);
+    throw error;
+  }
+}

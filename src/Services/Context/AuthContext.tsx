@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 type UserType = {
-  token: string;
+  token: string|null;
   role: string | null;
   id: string | null;
 };

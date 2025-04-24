@@ -3,7 +3,7 @@ import { PackageProps } from "../../Types/PackageTypes";
 import { getAllPackages } from "../../Services/Api/packageApis";
 import PackageCard from "../PackageComponents/packageCard";
 import { Button } from "../ui/button";
-
+import { Link } from "react-router-dom";
 function AdminPackageList() {
   const [packages, setPackages] = useState<PackageProps[]>([]);
   const [activeTab, setActiveTab] = useState<"active" | "completed" | "upcoming">("active");
@@ -53,6 +53,14 @@ function AdminPackageList() {
 
   return (
     <div className="p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-semibold">Manage Packages</h2>
+        <Link to="/admin/add">
+         <Button variant={"ghost"}>
+         + Add Package
+         </Button>
+        </Link>
+      </div>
       <div className="flex justify-center gap-2 mb-6 ">
         <Button className={tabClasses("active")} onClick={() => setActiveTab("active")}>
           Active

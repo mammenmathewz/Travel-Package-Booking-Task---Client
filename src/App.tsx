@@ -11,6 +11,7 @@ import UserBasedPackages from './Pages/admin/UserBasedPackages'
 import {ProtectedRoute} from './components/ProtectedRoutes';
 import {AdminRoute} from './components/ProtectedRoutes';
 import {RedirectIfAuthenticated} from './components/ProtectedRoutes';
+import AddNewPackage from './Pages/admin/AddNewPackage'
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
       </AdminRoute>
     }>
       <Route path="packages" element={<ListPackages />} />
+      <Route path="add" element={<AddNewPackage/>} />
       <Route path="packages/edit/:id" element={<EditPackages />} />
       <Route path="users" element={<UserList />} />
       <Route path="user/:id" element={<UserBasedPackages />} />
