@@ -7,6 +7,7 @@ import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { useAuth } from "../../Services/Context/AuthContext";
 import { deletePackage } from "../../Services/Api/packageApis";
+import { bookPackage } from "../../Services/Api/userApis"; // Import your createBooking API
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +26,8 @@ function PackageDetails() {
   const data = state?.packageData;
   const navigate = useNavigate();
   const { user } = useAuth();
+ 
+  
 
   const [pkg, setPkg] = useState<PackageProps | null>(null);
   const [loading, setLoading] = useState(true);
@@ -58,6 +61,34 @@ function PackageDetails() {
     } catch (error) {
       console.error("Failed to delete package:", error);
       alert("Error deleting package.");
+    }
+  };
+
+  const handleBooking = async () => {
+    if (!user) {
+      alert("You must be logged in to book a package.");
+      return;
+    }
+
+    try {
+      const response = await bookPackage({
+        userId: user.id, 
+        travelPackageId: pkg._id,
+        customizedServices: {
+          food: foodIncluded,
+          accommodation: accommodationIncluded,
+        },
+        totalPrice,
+      });
+
+      if (response.status === 201) {
+        alert("Booking success!");
+      } else {
+        alert("Booking failed: " + response.message);
+      }
+    } catch (error) {
+      console.error("Booking failed:", error);
+      alert("Error occurred while booking.");
     }
   };
 
@@ -129,7 +160,7 @@ function PackageDetails() {
           </div>
 
           {user?.role === "user" && (
-            <Button className="w-full" onClick={() => alert("Booking submitted (marked as Accepted)")}>
+            <Button className="w-full" onClick={handleBooking}>
               Book Now
             </Button>
           )}
@@ -145,7 +176,7 @@ function PackageDetails() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete the package .
+                    This action cannot be undone. This will permanently delete the package.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
