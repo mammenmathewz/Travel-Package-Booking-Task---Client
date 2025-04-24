@@ -9,7 +9,7 @@ export const getAllUsers = async () => {
     }
 };
 
-export const getUserBookings = async (userId: string) => {
+export const getUserBookings = async (userId: string| null | undefined) => {
     try {
         const response = await axiosInstance.get(`/admin/getuserbookings/${userId}`);
         console.log(response.data, "user bookings data from api");

@@ -10,6 +10,7 @@ import {
   TableCell,
   TableHeader,
 } from "../ui/table";
+import { useAuth } from "../../Services/Context/AuthContext";
 
 interface TravelPackage {
   from: string;
@@ -44,15 +45,18 @@ const getStatus = (startDate: string, endDate: string): string => {
 };
 
 const UserBasedPackages = () => {
-  const { id } = useParams<{ id: string }>();
+  let { id } = useParams<{ id: string }>();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { user } = useAuth();
+  const isAdmin = user?.role ;
+  let userId =  isAdmin==="admin" ? id : user?.id;
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        if (!id) return;
-        const response = await getUserBookings(id);
+        if (!userId) return;
+        const response = await getUserBookings(userId);
         setBookings(response || []);
       } catch (error) {
         console.error("Error fetching bookings:", error);
