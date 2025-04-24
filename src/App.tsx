@@ -5,7 +5,8 @@ import Profile from './Pages/user/Profile'
 import Login from './Pages/auth/Login'
 import ListPackages from './Pages/admin/ListPackages'
 import EditPackages from './Pages/admin/EditPackages'
-import { Dashboard } from './Pages/admin/Dashboard'
+import { AdminLayout } from './Pages/admin/Dashboard'
+import UserList from './Pages/admin/UserList'
 
 function App() {
   return (
@@ -17,9 +18,11 @@ function App() {
       <Route path='/profile' element={<Profile/>}/>
       <Route path='/login' element={<Login/>}/>
       {/* Admin Routes */}
-      <Route path='/admin' element={<Dashboard/>}/>
-      <Route path='/admin/packages' element={<ListPackages/>}/>
-      <Route path='/packages/edit/:id' element={<EditPackages/>}/>
+      <Route path="/admin" element={<AdminLayout />}>
+      <Route path="packages" element={<ListPackages />} />
+      <Route path="packages/edit/:id" element={<EditPackages />} />
+      <Route path="users" element={<UserList/>} />
+    </Route>
 
     </Routes>
     </BrowserRouter>

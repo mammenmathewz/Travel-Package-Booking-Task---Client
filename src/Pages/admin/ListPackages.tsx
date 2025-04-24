@@ -1,7 +1,10 @@
+import AdminPackageList from "../../components/AdminComponents/AdminPackageList"
 
 function ListPackages() {
   return (
-    <div>ListPackages</div>
+    <>
+    <AdminPackageList/>
+    </>
   )
 }
 
