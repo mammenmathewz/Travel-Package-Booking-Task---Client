@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { getUserData, updateUserProfile } from "../../Services/Api/userApis";
+import { useAuth } from "../../Services/Context/AuthContext";
 
 interface Profile {
   name: string;
@@ -9,23 +11,45 @@ interface Profile {
   profilePic: string;
 }
 
-interface EditableProfileProps {
-  profile: Profile;
-  onSave: (updatedProfile: Profile) => void;
-}
-
-export function EditableProfile({ profile, onSave }: EditableProfileProps) {
+export function EditableProfile() {
   const [editMode, setEditMode] = useState(false);
-  const [tempProfile, setTempProfile] = useState(profile);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [tempProfile, setTempProfile] = useState<Profile | null>(null);
+  const { user } = useAuth();
+  const userId = user?.id;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (!userId) return;
+        const data = await getUserData(userId);
+        setProfile(data);
+        setTempProfile(data);
+      } catch (err) {
+        console.error("Failed to load user profile");
+      }
+    };
+
+    fetchData();
+  }, [userId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!tempProfile) return;
     setTempProfile({ ...tempProfile, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    onSave(tempProfile);
-    setEditMode(false);
+  const handleSave = async () => {
+    if (!tempProfile || !userId) return;
+    try {
+      await updateUserProfile(userId, tempProfile);
+      setProfile(tempProfile);
+      setEditMode(false);
+    } catch (err) {
+      console.error("Failed to save user profile");
+    }
   };
+
+  if (!profile) return <div>Loading...</div>;
 
   return (
     <div className="p-4 space-y-4">
@@ -36,7 +60,7 @@ export function EditableProfile({ profile, onSave }: EditableProfileProps) {
           className="w-24 h-24 rounded-full object-cover border"
         />
         <div className="flex-1 w-full space-y-2">
-          {editMode ? (
+          {editMode && tempProfile ? (
             <>
               <Input
                 name="name"
@@ -46,13 +70,13 @@ export function EditableProfile({ profile, onSave }: EditableProfileProps) {
               />
               <Input
                 name="address"
-                value={tempProfile.address}
+                value={tempProfile.address || ""}
                 onChange={handleInputChange}
                 placeholder="Address"
               />
               <Input
                 name="phone"
-                value={tempProfile.phone}
+                value={tempProfile.phone || ""}
                 onChange={handleInputChange}
                 placeholder="Phone Number"
               />
@@ -60,16 +84,21 @@ export function EditableProfile({ profile, onSave }: EditableProfileProps) {
           ) : (
             <>
               <h3>{profile.name}</h3>
-              <p>{profile.address}</p>
-              <p>{profile.phone}</p>
+              {profile.address && <p>{profile.address}</p>}
+              {profile.phone && <p>{profile.phone}</p>}
             </>
           )}
+
           <div className="flex gap-2">
-            <Button size="sm" onClick={() => setEditMode(!editMode)} variant="outline">
-              {editMode ? "Save" : "Edit"}
+            <Button
+              size="sm"
+              onClick={() => setEditMode(!editMode)}
+              variant="outline"
+            >
+              {editMode ? "Cancel" : "Edit"}
             </Button>
             {editMode && (
-              <Button size="sm" onClick={handleSave} variant={"default"}>
+              <Button size="sm" onClick={handleSave}>
                 Save Changes
               </Button>
             )}
