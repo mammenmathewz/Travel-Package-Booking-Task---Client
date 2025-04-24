@@ -29,12 +29,16 @@ const LoginComponent = () => {
         localStorage.setItem("userName", data.user.name);
 
         setUser({ token: data.token, role: data.user.role, id: data.user._id });
+        console.log("User Data:", data.user);
 
-        if (data.user.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
+        setTimeout(() => {
+          if (data.user.role === "admin") {
+            navigate("/admin/packages");
+          } else {
+            navigate("/");
+          }
+        }, 100)
+        
       } else {
         setError("Invalid credentials");
       }
