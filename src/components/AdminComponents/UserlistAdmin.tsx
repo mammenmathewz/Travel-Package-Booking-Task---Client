@@ -38,6 +38,7 @@ function UserlistAdmin() {
       {users.map((user) => (
         <UserCard
           key={user._id}
+          _id={user._id}
           name={user.name}
           email={user.email}
           image={user.profilePic}
