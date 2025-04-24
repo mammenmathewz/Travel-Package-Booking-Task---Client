@@ -15,7 +15,6 @@ function PackageList() {
   });
   const [sortBy, setSortBy] = useState("price");
   const [loading, setLoading] = useState(false);
-  console.log("Packages:", packages);
   
 
   useEffect(() => {
@@ -27,7 +26,6 @@ function PackageList() {
         if (Array.isArray(packagesData)) {
           setPackages(packagesData);
         } else {
-          console.error("Expected an array of packages, but received:", packagesData);
           setPackages([]);
         }
       } catch (error) {
@@ -39,9 +37,12 @@ function PackageList() {
     })();
   }, []);
 
+  const today = new Date();
+
   const filteredPackages = packages
     .filter(
       (pkg) =>
+        new Date(pkg.endDate) >= today && (pkg.startDate ? new Date(pkg.startDate) >= today : true) &&
         (!search.from || pkg.from.toLowerCase().includes(search.from.toLowerCase())) &&
         (!search.to || pkg.to.toLowerCase().includes(search.to.toLowerCase())) &&
         (!search.startDate || new Date(pkg.startDate) >= new Date(search.startDate)) &&
@@ -54,6 +55,8 @@ function PackageList() {
         ? b.basePrice - a.basePrice
         : 0
     );
+  
+  
 
   if (loading) {
     return <div>Loading...</div>;

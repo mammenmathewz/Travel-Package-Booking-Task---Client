@@ -55,16 +55,16 @@ function PackageCard({_id, from, to, startDate, endDate, basePrice, bookingCount
       <div className={`text-sm font-medium ${status === "Completed" ? "text-red-500" : status === "Active" ? "text-green-600" : "text-blue-500"}`}>
         Status: {status}
       </div>
-
-      {user?.role === "admin" && (
-        <>
-          {/* Details Button */}
-          <button
+      <button
             className="mt-1 px-4 py-1 text-sm bg-black text-white rounded hover:bg-blue-950 transition"
             onClick={handleCardClick}
           >
             Details
           </button>
+
+      {user?.role === "admin" && (
+        <>
+     
 
           {/* Edit Button */}
           <button
