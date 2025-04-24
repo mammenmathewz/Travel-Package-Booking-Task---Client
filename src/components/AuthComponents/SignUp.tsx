@@ -26,18 +26,18 @@ const SignUpComponent = () => {
     }
 
     try {
-      const res = await createUserWithEmailAndPassword(email, password);
-      const user = res.user;
+      const data = await createUserWithEmailAndPassword(name, email, password);
+      
+      // Save token and user data
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.user.role);
+      
+      setUser({ token: data.token, role: data.user.role, id: data.user._id });
 
-      const token = await user.getIdToken();
-      localStorage.setItem("token", token);
-      localStorage.setItem("role", "user");
-
-      setUser({ token: data.token, role: data.user.role });
-
-      // Optionally redirect user here
+      // Optionally redirect user
     } catch (err: any) {
-      setError(err?.message || "Something went wrong");
+      console.error(err);
+      setError(err?.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -45,8 +45,8 @@ const SignUpComponent = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 w-full">
-        <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-1">Name</label>
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
         <Input
           id="name"
           type="text"
@@ -100,7 +100,6 @@ const SignUpComponent = () => {
       <Button type="submit" variant="default" className="w-full mt-6" disabled={loading}>
         {loading ? "Signing Up..." : "Create Account"}
       </Button>
-
 
       {error && <p className="text-red-500 mt-4 text-sm">{error}</p>}
     </form>

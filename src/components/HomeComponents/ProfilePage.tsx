@@ -3,6 +3,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { getUserData, updateUserProfile } from "../../Services/Api/userApis";
 import { useAuth } from "../../Services/Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface Profile {
   name: string;
@@ -15,8 +16,9 @@ export function EditableProfile() {
   const [editMode, setEditMode] = useState(false);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [tempProfile, setTempProfile] = useState<Profile | null>(null);
-  const { user } = useAuth();
+  const { user, setUser } = useAuth(); 
   const userId = user?.id;
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +49,17 @@ export function EditableProfile() {
     } catch (err) {
       console.error("Failed to save user profile");
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("id");
+    localStorage.removeItem("userName");
+
+    setUser(null); 
+    navigate("/login")
+    
   };
 
   if (!profile) return <div>Loading...</div>;
@@ -89,7 +102,7 @@ export function EditableProfile() {
             </>
           )}
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <Button
               size="sm"
               onClick={() => setEditMode(!editMode)}
@@ -102,6 +115,9 @@ export function EditableProfile() {
                 Save Changes
               </Button>
             )}
+            <Button size="sm" variant="destructive" onClick={handleLogout}>
+              Logout
+            </Button>
           </div>
         </div>
       </div>

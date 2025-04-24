@@ -14,11 +14,12 @@ export const postLogin = async (email: string, password: string) => {
     }
 }
 
-export const createUserWithEmailAndPassword = async ( email: string, password: string) => {
+export const createUserWithEmailAndPassword = async ( name: string, email: string, password: string) => {
     try {
         const response = await axiosInstance.post("/auth/signup", {
             email,
             password,
+            name
         });
         return response.data;
     } catch (error) {
