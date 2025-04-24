@@ -9,7 +9,7 @@ import {
   TableRow,
   TableCell,
   TableHeader,
-} from "../../components/ui/table";
+} from "../ui/table";
 
 interface TravelPackage {
   from: string;

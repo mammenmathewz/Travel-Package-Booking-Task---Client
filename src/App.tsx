@@ -7,11 +7,11 @@ import ListPackages from './Pages/admin/ListPackages'
 import EditPackages from './Pages/admin/EditPackages'
 import { AdminLayout } from './Pages/admin/Dashboard'
 import UserList from './Pages/admin/UserList'
-import UserBasedPackages from './Pages/admin/UserBasedPackages'
 import {ProtectedRoute} from './components/ProtectedRoutes';
 import {AdminRoute} from './components/ProtectedRoutes';
 import {RedirectIfAuthenticated} from './components/ProtectedRoutes';
 import AddNewPackage from './Pages/admin/AddNewPackage'
+import UserBasedPackageTable from './Pages/admin/UserBasedPackageTable'
 
 function App() {
   return (
@@ -48,7 +48,7 @@ function App() {
       <Route path="add" element={<AddNewPackage/>} />
       <Route path="packages/edit/:id" element={<EditPackages />} />
       <Route path="users" element={<UserList />} />
-      <Route path="user/:id" element={<UserBasedPackages />} />
+      <Route path="user/:id" element={<UserBasedPackageTable />} />
       <Route path="*" element={<div>404 Not Found</div>} />
     </Route>
   </Routes>
