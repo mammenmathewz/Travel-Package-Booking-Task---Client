@@ -1,54 +1,144 @@
-# React + TypeScript + Vite
+# Travel Package Booking - Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive React application for booking travel packages. Built with Vite, TypeScript, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** with TypeScript
+- **Vite** for fast development and optimized builds
+- **Tailwind CSS** for styling
+- **React Router v7** for navigation
+- **Firebase** for Google OAuth authentication
+- **Radix UI** for accessible, unstyled components
+- **Axios** for API requests
+- **date-fns** for date manipulation
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- User authentication (Email/Password and Google OAuth)
+- Browse available travel packages
+- Search and filter packages by location, date, and price
+- View detailed package information
+- Customize and book travel packages
+- User dashboard to view and manage bookings
+- Admin panel for managing packages and users
+- Responsive design for all devices
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📁 Project Structure
+
+```
+/src
+  /assets        # Static assets (images, fonts)
+  /components    # Reusable UI components
+  /contexts      # React contexts (auth, theme)
+  /hooks         # Custom React hooks
+  /layouts       # Page layout components
+  /pages         # Page components
+  /services      # API services
+  /types         # TypeScript type definitions
+  /utils         # Utility functions
+  App.tsx        # Main application component
+  main.tsx       # Entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Setup Instructions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+1. Clone the repository
+```bash
+git clone https://github.com/mammenmathewz/Travel-Package-Booking-Task---Client.git
+cd Travel-Package-Booking-Task---Client
 ```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Create environment variables
+Create a `.env` file in the project root with the following:
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_id
+VITE_FIREBASE_APP_ID=your_firebase_app_id
+```
+
+4. Start the development server
+```bash
+npm run dev
+```
+
+## 📦 Build for Production
+
+```bash
+npm run build
+```
+
+To preview the production build:
+```bash
+npm run preview
+```
+
+## 🔧 UI Components
+
+This project utilizes Radix UI primitives for accessible components:
+
+- Dialog/Modal windows
+- Tabs for navigation
+- Tooltips for additional information
+- Avatar components
+- Checkboxes and form elements
+- Alert dialogs for confirmations
+
+All components are styled with Tailwind CSS for consistent design.
+
+## 🔐 Authentication
+
+The application supports:
+- Email and password registration/login
+- Google OAuth login via Firebase
+- JWT token storage and authentication
+- Protected routes for authenticated users
+
+## 🌐 API Integration
+
+The client connects to the [Travel Package Booking API Server](https://github.com/mammenmathewz/Travel-Package-Booking-Task---Server) for all data operations:
+
+- User authentication
+- Fetching travel packages
+- Managing bookings
+- User profile operations
+- Admin functionalities
+
+## 📱 Responsive Design
+
+The application is fully responsive with:
+- Mobile-first design approach
+- Tailwind breakpoints for different screen sizes
+- Optimized layouts for desktop, tablet, and mobile
+
+## 🧪 Linting and Type Checking
+
+```bash
+npm run lint     # Run ESLint
+tsc --noEmit     # Type checking only
+```
+
+## 🔄 Version Information
+
+- React: 19.0.0
+- TypeScript: 5.7.2
+- Vite: 6.3.1
+- Tailwind CSS: 4.1.4
+
+## 📄 License
+
+This project is submitted as part of a technical assessment for Cochin Computing.
+
+## 🔗 Related Links
+
+- [Backend API Repository](https://github.com/mammenmathewz/Travel-Package-Booking-Task---Server)
+- [Live Demo](#) (https://travalpackage.netlify.app/)
