@@ -25,16 +25,17 @@ export function EditableProfile() {
       try {
         if (!userId) return;
         const data = await getUserData(userId);
+        console.log("User Data:", data);
         setProfile(data);
         setTempProfile(data);
       } catch (err) {
         console.error("Failed to load user profile");
       }
     };
-
+  
     fetchData();
-  }, [userId]);
-
+  }, [userId]); 
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!tempProfile) return;
     setTempProfile({ ...tempProfile, [e.target.name]: e.target.value });
