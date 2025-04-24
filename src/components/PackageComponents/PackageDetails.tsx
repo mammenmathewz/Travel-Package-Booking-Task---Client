@@ -7,7 +7,7 @@ import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { useAuth } from "../../Services/Context/AuthContext";
 import { deletePackage } from "../../Services/Api/packageApis";
-import { bookPackage } from "../../Services/Api/userApis"; // Import your createBooking API
+import { bookPackage } from "../../Services/Api/userApis";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -81,11 +81,7 @@ function PackageDetails() {
         totalPrice,
       });
 
-      if (response.status === 201) {
-        alert("Booking success!");
-      } else {
-        alert("Booking failed: " + response.message);
-      }
+        alert(`Booking success!${response.message}`)
     } catch (error) {
       console.error("Booking failed:", error);
       alert("Error occurred while booking.");
