@@ -8,31 +8,55 @@ import EditPackages from './Pages/admin/EditPackages'
 import { AdminLayout } from './Pages/admin/Dashboard'
 import UserList from './Pages/admin/UserList'
 import UserBasedPackages from './Pages/admin/UserBasedPackages'
+import {ProtectedRoute} from './components/ProtectedRoutes';
+import {AdminRoute} from './components/ProtectedRoutes';
+import {RedirectIfAuthenticated} from './components/ProtectedRoutes';
 
 function App() {
   return (
     <>
-    <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path='/package/:id' element={<Package/>}/>
-      <Route path='/profile' element={<Profile/>}/>
-      <Route path='/login' element={<Login/>}/>
-      {/* Admin Routes */}
-      <Route
-       path="/admin" element={<AdminLayout />}>
+    
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    
+  
+    <Route path="/login" element={
+      <RedirectIfAuthenticated>
+        <Login />
+      </RedirectIfAuthenticated>
+    } />
+
+    <Route path="/package/:id" element={
+      <ProtectedRoute>
+        <Package />
+      </ProtectedRoute>
+    } />
+    <Route path="/profile" element={
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    } />
+
+    <Route path="/admin" element={
+      <AdminRoute>
+        <AdminLayout />
+      </AdminRoute>
+    }>
       <Route path="packages" element={<ListPackages />} />
       <Route path="packages/edit/:id" element={<EditPackages />} />
-      <Route path="users" element={<UserList/>} />
-      <Route path="user/:id" element={<UserBasedPackages/>} />
+      <Route path="users" element={<UserList />} />
+      <Route path="user/:id" element={<UserBasedPackages />} />
       <Route path="*" element={<div>404 Not Found</div>} />
-      </Route>
+    </Route>
+  </Routes>
+</BrowserRouter>
 
-    </Routes>
-    </BrowserRouter>
 
     </>
   )
 }
 
 export default App
+
+
