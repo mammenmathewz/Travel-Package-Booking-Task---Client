@@ -12,6 +12,8 @@ A modern, responsive React application for booking travel packages. Built with V
 - **Radix UI** for accessible, unstyled components
 - **Axios** for API requests
 - **date-fns** for date manipulation
+- **shadcn/ui** component library
+
 
 ## ✨ Features
 
