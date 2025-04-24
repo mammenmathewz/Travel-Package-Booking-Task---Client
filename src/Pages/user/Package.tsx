@@ -1,8 +1,10 @@
-import React from 'react'
+import PackageDetails from "../../components/PackageComponents/PackageDetails"
 
 function Package() {
   return (
-    <div>Package</div>
+    <>
+    <PackageDetails/>
+    </>
   )
 }
 

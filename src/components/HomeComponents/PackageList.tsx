@@ -15,6 +15,8 @@ function PackageList() {
   });
   const [sortBy, setSortBy] = useState("price");
   const [loading, setLoading] = useState(false);
+  console.log("Packages:", packages);
+  
 
   useEffect(() => {
     setLoading(true);

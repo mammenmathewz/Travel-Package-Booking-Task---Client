@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Home/>}/>
-      <Route path='/package' element={<Package/>}/>
+      <Route path='/package/:id' element={<Package/>}/>
       <Route path='/profile' element={<Profile/>}/>
       <Route path='/login' element={<Login/>}/>
       {/* Admin Routes */}
