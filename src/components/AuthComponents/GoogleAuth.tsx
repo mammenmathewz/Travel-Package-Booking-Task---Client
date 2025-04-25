@@ -14,8 +14,8 @@ const GoogleLogin = () => {
       const user = result.user;
       const idToken = await user.getIdToken();
 
-      // Send the token to your backend to handle login/register logic
-      const response = await axios.post("http://localhost:5000/api/auth/google-login", {
+      
+      const response = await axios.post("https://travel-package-booking-task-server.onrender.com/api/auth/google-login", {
         token: idToken,
       });
 
