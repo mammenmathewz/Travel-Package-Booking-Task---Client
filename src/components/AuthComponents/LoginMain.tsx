@@ -46,8 +46,8 @@ const LoginMain = () => {
       {/* Image/Brand Section - Only visible on medium screens and above */}
       <div className="hidden md:flex md:w-2/4 items-center justify-center">
         <div className="p-8 ">
-          <h2 className="text-3xl font-bold mb-4">Your Application</h2>
-          <p className="mb-6">Secure, fast, and reliable service</p>
+          <h2 className="text-3xl font-bold mb-4">Login as admin</h2>
+          <p className="mb-6">admin@gmail.com and Admin@123</p>
           {/* You could add a logo or illustration here */}
         </div>
       </div>
