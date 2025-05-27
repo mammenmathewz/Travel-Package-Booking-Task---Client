@@ -138,7 +138,7 @@ tsc --noEmit     # Type checking only
 
 ## 📄 License
 
-This project is submitted as part of a technical assessment for Cochin Computing.
+This project is submitted as part of a technical assessment for _____________________________.
 
 ## 🔗 Related Links
 
